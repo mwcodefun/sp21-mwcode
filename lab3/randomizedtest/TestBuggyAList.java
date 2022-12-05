@@ -9,4 +9,21 @@ import static org.junit.Assert.*;
  */
 public class TestBuggyAList {
   // YOUR TESTS HERE
+
+  @Test
+  public void testThreeAddThreeRemove(){
+    AListNotResizing a = new AListNotResizing();
+    BuggyAList b = new BuggyAList();
+    for (int i = 0; i < 3; i++) {
+      a.addLast(i);
+      b.addLast(i);
+    }
+    for (int i = 0; i < 3; i++) {
+      a.removeLast();
+      b.removeLast();
+    }
+    assertEquals(a.size(), b.size());
+
+  }
+
 }
