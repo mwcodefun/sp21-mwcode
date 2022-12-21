@@ -3,11 +3,11 @@ package bstmap;
 import java.util.Iterator;
 import java.util.Set;
 
-public class BSTMap<K extends Comparable,V> implements  Map61B<K,V>{
+public class BSTMap<K extends Comparable<K>,V> implements  Map61B<K,V>{
 
-    Node<K,V> root;
+    private Node<K,V> root;
 
-    int size = 0;
+    private int size = 0;
 
     static class Node<K,V> {
         Node left;
@@ -69,6 +69,21 @@ public class BSTMap<K extends Comparable,V> implements  Map61B<K,V>{
             node.right = put(node.right,k,v);
         }
         return node;
+    }
+    public void printInOrder(){
+        if(root == null){
+            return;
+        }
+        printInOrder(root);
+    }
+
+    private void printInOrder(Node<K,V> node){
+        if(node == null){
+            return;
+        }
+        printInOrder(node.left);
+        System.out.println(node.key + " " + node.val);
+        printInOrder(node.right);
     }
 
     @Override
