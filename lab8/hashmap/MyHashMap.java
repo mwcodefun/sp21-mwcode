@@ -1,9 +1,6 @@
 package hashmap;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 /**
  *  A hash table-backed Map implementation. Provides amortized constant time
@@ -21,7 +18,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     private Node find(K k){
-        int p = k.hashCode() % buckets.length;
+        int p = hash(k) % buckets.length;
         Collection<Node> bucket = buckets[p];
         if (bucket == null){
             return null;
@@ -63,7 +60,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
 
         Node newNode = createNode(key,value);
-        int p = key.hashCode() % buckets.length;
+        int p = hash(key) % buckets.length;
         Collection<Node> bucket = buckets[p];
         if (bucket == null){
             Collection<Node> newBucket = createBucket();
@@ -72,6 +69,11 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }else{
             bucket.add(newNode);
         }
+        size++;
+    }
+
+    private int hash(K k){
+        return Math.abs(k.hashCode());
     }
 
     public void resize(int newsize){
@@ -81,7 +83,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
                 continue;
             }
             for (Node node : bucket) {
-                int p = node.key.hashCode() % newsize;
+                int p = hash(node.key) % newsize;
                 Collection<Node> newbucket = newbuckets[p];
                 if (newbucket == null){
                     newbucket = createBucket();
@@ -94,7 +96,16 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        return null;
+        HashSet<K> keySet = new HashSet<>();
+        for (Collection<Node> bucket : buckets) {
+            if (bucket == null){
+                continue;
+            }
+            for (Node node : bucket) {
+                keySet.add(node.key);
+            }
+        }
+        return keySet;
     }
 
     @Override
@@ -109,7 +120,16 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public Iterator<K> iterator() {
-        return null;
+        HashSet<K> keySet = new HashSet<>();
+        for (Collection<Node> bucket : buckets) {
+            if (bucket == null){
+                continue;
+            }
+            for (Node node : bucket) {
+                keySet.add(node.key);
+            }
+        }
+        return keySet.iterator();
     }
 
     /**
