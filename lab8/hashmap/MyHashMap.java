@@ -76,7 +76,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return (k.hashCode() & 0x7fffffff);
     }
 
-    public void resize(){
+    private void resize(){
         Collection<Node>[] newbuckets = createTable(this.buckets.length * 2);
         for (Collection<Node> bucket : buckets) {
             if (bucket == null){
