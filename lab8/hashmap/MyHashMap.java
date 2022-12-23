@@ -158,7 +158,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     public MyHashMap(int initialSize) {
-        this.buckets = new LinkedList[initialSize];
+        this.buckets = new Collection[initialSize];
         this.size = 0;
         this.capacity = 16;
     }
@@ -214,7 +214,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      * @param tableSize the size of the table to create
      */
     private Collection<Node>[] createTable(int tableSize) {
-        return new LinkedList[tableSize];
+        return new Collection[tableSize];
     }
 
     // TODO: Implement the methods of the Map61B Interface below
