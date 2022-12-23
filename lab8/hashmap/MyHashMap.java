@@ -56,7 +56,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
 
         if (size >= buckets.length * loadFactor){
-            resize(buckets.length * 2);
+            resize();
         }
 
         Node newNode = createNode(key,value);
@@ -76,14 +76,14 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return (k.hashCode() & 0x7fffffff);
     }
 
-    public void resize(int newsize){
-        Collection<Node>[] newbuckets = createTable(newsize);
+    public void resize(){
+        Collection<Node>[] newbuckets = createTable(this.buckets.length * 2);
         for (Collection<Node> bucket : buckets) {
             if (bucket == null){
                 continue;
             }
             for (Node node : bucket) {
-                int p = hash(node.key) % newsize;
+                int p = hash(node.key) % newbuckets.length;
                 Collection<Node> newbucket = newbuckets[p];
                 if (newbucket == null){
                     newbucket = createBucket();
