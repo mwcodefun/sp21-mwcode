@@ -73,7 +73,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     }
 
     private int hash(K k){
-        return Math.abs(k.hashCode());
+        return (k.hashCode() & 0x7fffffff);
     }
 
     public void resize(int newsize){
